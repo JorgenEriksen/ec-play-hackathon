@@ -1,0 +1,23 @@
+header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+    img{
+        display: block;
+        width: 30%;
+        margin: 0 auto;
+    }
+    nav{
+        padding-top: 20px;
+        a{
+            margin: 0 20px;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: white;
+        }
+    }
+
+
+}

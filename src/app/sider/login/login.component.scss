@@ -1,0 +1,17 @@
+#login-container{
+    margin-top: 100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    #meldingsboks{
+        color: lightgreen;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+}

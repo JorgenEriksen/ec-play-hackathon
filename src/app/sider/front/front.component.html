@@ -1,0 +1,15 @@
+<!-- Legg til en melding hvis det er ingen challenges -->
+
+<div *ngFor="let challenge of challenges" class="challenge-container">
+    <p>challenge id: {{ challenge.id }}</p>
+    <p>navn: {{ challenge.navn }}</p>
+    <p>description: {{ challenge.beskrivelse }} </p> 
+    <p>creator id: {{ challenge.admin }} </p> 
+    <p *ngIf="challenge.type=='solo'">solo</p>
+    <p *ngIf="challenge.type=='closed'">closed</p>
+    <p *ngIf="challenge.type=='open'">open</p>
+    <p>invitecode: {{ challenge.inviteringskode }} </p>
+    <p>participants: </p>
+    <span *ngFor="let deltager of challenge.deltagere"> {{ deltager }} </span> 
+    <button (click)="slettChallenge($event, challenge)">delete</button>
+</div>

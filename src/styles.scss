@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'DINPro';
+    src: url('./assets/fonts/DINpro/DINPro-Medium-tr.woff'); /* IE9 Compat Modes */
+}
+
+
+body, html{
+    color: white;
+    background: #22272C;
+    margin: 0;
+    font-family: DINPro, sans-serif;
+}

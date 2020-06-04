@@ -1,0 +1,10 @@
+<div id="login-container">
+    <div id="meldingsboks" *ngIf="boksMelding != ''">
+        <p>{{ boksMelding }}</p>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+        <label for="navn">Name</label>
+        <input type="text" placeholder="your display name" name="navn" [(ngModel)]="bruker.brukernavn"><br>
+        <input type="submit" value="Login/Registrer">
+    </form>
+</div>
