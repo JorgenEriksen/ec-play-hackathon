@@ -10,7 +10,7 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  brukere: Bruker[];
+  alleBrukere: Bruker[];
   bruker: Bruker = {
     id: '',
     brukernavn: '',
@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.brukerService.getBrukere().subscribe(alleBrukere => {
-      this.brukere = alleBrukere;
+    this.brukerService.getBrukere().subscribe(brukere => {
+      this.alleBrukere = brukere;
     });
 
     this.data.erLoggetInn.subscribe(verdi => this.loggetInn = verdi);
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     let id = '';
 
     if (this.bruker.brukernavn !== ''){
-        this.brukere.forEach(b => {
+        this.alleBrukere.forEach(b => {
           if (b.brukernavn === this.bruker.brukernavn){
             fantBruker = true;
             id = b.id;

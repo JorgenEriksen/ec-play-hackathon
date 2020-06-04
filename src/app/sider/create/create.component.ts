@@ -4,14 +4,13 @@ import { Challenge } from '../../models/challenge';
 import { ChallengeService } from '../../services/challenge.service';
 import { DataService } from '../../services/data.service';
 
-
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements OnInit {
-  alleChallenges: any;
+  alleChallenges: Challenge[];
   challenge: Challenge = {
     id: '',
     navn: '',
@@ -47,6 +46,7 @@ export class CreateComponent implements OnInit {
         this.challenge.inviteringskode = invKode;
       }
 
+      this.challenge.deltagere.push(this.challenge.admin); // legger også til admin i deltager listen
       this.challengeService.leggTilChallenge(this.challenge);
 
       // gjør form blank igjen via databinding
@@ -59,11 +59,11 @@ export class CreateComponent implements OnInit {
 
   // sjekker om inviteringskode eksisterer, selvom det er en utrolig liten sjans for det.
   eksistererInviteringskode(invKode: string){
-    this.alleChallenges.forEach(element => {
+    for (const element of this.alleChallenges) {
       if(element.inviteringskode === invKode){
         return true;
       }
-    });
+    }
     return false; // hvis koden ikke eksisterte fra før
   }
 

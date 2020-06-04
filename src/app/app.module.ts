@@ -13,6 +13,7 @@ import { ChallengeService } from './services/challenge.service';
 import { HeaderComponent } from './header/header.component';
 import { CreateComponent } from './sider/create/create.component';
 import { LoginComponent } from './sider/login/login.component';
+import { JoinComponent } from './sider/join/join.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoginComponent } from './sider/login/login.component';
     FrontComponent,
     HeaderComponent,
     CreateComponent,
-    LoginComponent
+    LoginComponent,
+    JoinComponent
   ],
   imports: [
     BrowserModule,

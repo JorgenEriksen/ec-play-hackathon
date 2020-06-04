@@ -9,13 +9,13 @@ import { Challenge } from '../../models/challenge';
   styleUrls: ['./front.component.scss']
 })
 export class FrontComponent implements OnInit {
-  challenges: Challenge;
+  alleChallenges: Challenge;
 
   constructor(private challengeService: ChallengeService) { }
 
   ngOnInit(): void {
     this.challengeService.getChallenges().subscribe(challengesData => {
-      this.challenges = challengesData;
+      this.alleChallenges = challengesData;
     });
   }
 

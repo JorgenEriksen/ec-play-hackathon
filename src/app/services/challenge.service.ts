@@ -31,6 +31,11 @@ export class ChallengeService {
     this.challengeCollection.add(nyChallenge);
    }
 
+   oppdaterChallenge(redChallenge: Challenge){
+    this.challengeDoc = this.afs.doc(`Challenges/${redChallenge.id}`);
+    this.challengeDoc.update(redChallenge);
+   }
+
    slettChallenge(slettChallenge: Challenge){
     this.challengeDoc = this.afs.doc(`Challenges/${slettChallenge.id}`);
     this.challengeDoc.delete();
