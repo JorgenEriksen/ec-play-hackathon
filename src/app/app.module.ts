@@ -7,13 +7,15 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FrontComponent } from './sider/front/front.component';
+import { FrontComponent } from './components/front/front.component';
 
 import { ChallengeService } from './services/challenge.service';
 import { HeaderComponent } from './header/header.component';
-import { CreateComponent } from './sider/create/create.component';
-import { LoginComponent } from './sider/login/login.component';
-import { JoinComponent } from './sider/join/join.component';
+import { CreateComponent } from './components/create/create.component';
+import { LoginComponent } from './components/login/login.component';
+import { JoinComponent } from './components/join/join.component';
+import { ChallengeDetailComponent } from './components/challenge-detail/challenge-detail.component';
+import { MeldingsboksComponent } from './components/meldingsboks/meldingsboks.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { JoinComponent } from './sider/join/join.component';
     HeaderComponent,
     CreateComponent,
     LoginComponent,
-    JoinComponent
+    JoinComponent,
+    ChallengeDetailComponent,
+    MeldingsboksComponent
   ],
   imports: [
     BrowserModule,

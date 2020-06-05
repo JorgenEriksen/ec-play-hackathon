@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
    }
 
     if (fantBruker){
-      console.log('fant bruker med id ' + id);
       this.data.settInnloggetBrukerId(id); // lagrer brukerIden så man vet hvilken bruker som er innlogget
       this.data.loggInn(true);
       this.boksMelding = '';

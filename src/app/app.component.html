@@ -1,9 +1,24 @@
 <div id="hele-siden">
-  <app-login *ngIf="loggetInn == false" ></app-login>
-  <div *ngIf="loggetInn == true">
+  <app-login *ngIf="loggetInn == true" ></app-login>
+  <div *ngIf="loggetInn == false">
     <app-header></app-header>
     <div id="hoved-delen">
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
+
+
+
+
+<!-- 
+<div id="hele-siden">
+  <div>
+    <app-header></app-header>
+    <app-login *ngIf="loggetInn == false" ></app-login>
+    <div id="hoved-delen" *ngIf="loggetInn == true">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+-->

@@ -1,0 +1,14 @@
+<div id="login-container">
+    <div id="meldingsboks" *ngIf="boksMelding != ''">
+        <p>{{ boksMelding }}</p>
+    </div>
+    <div id="form-container">
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-input-container">
+                <label for="username">Username</label>
+                <input type="text" placeholder="your display name" name="username" [(ngModel)]="bruker.brukernavn"><br>
+                <input type="submit" value="Login/Registrer">
+            </div>
+        </form>
+    </div>
+</div>

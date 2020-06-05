@@ -13,6 +13,7 @@ export class JoinComponent implements OnInit {
   alleChallenges: Challenge[];
   innloggetId: string;
   redigerChallenge: Challenge;
+  antallOpenChallenges: number;
   kodeInput = '';
 
   constructor(private challengeService: ChallengeService, private data: DataService) { }
@@ -22,6 +23,12 @@ export class JoinComponent implements OnInit {
 
     this.challengeService.getChallenges().subscribe(challengesData => {
       this.alleChallenges = challengesData;
+
+      // teller antall lagrede challenges som er open
+      this.antallOpenChallenges = 0;
+      this.alleChallenges.forEach(element => {
+        if (element.type === 'open'){ this.antallOpenChallenges++; }
+      });
     });
   }
 
@@ -30,7 +37,13 @@ export class JoinComponent implements OnInit {
       if (this.finnesInviteringskode(this.kodeInput)){ // om inviteringskoden finnes
         if (!this.erBrukerMedlem()){                   // om innlogget bruker ikke er medlem fra før
           console.log('Lagt til bruker!');
-          this.redigerChallenge.deltagere.push(this.innloggetId);
+          this.redigerChallenge.deltagere.push({
+            brukerId: this.innloggetId,
+            statistikk: [{
+              dato: new Date(),
+              brukerFrekvense: 0
+            }]
+          });
           this.challengeService.oppdaterChallenge(this.redigerChallenge);
         } else {
           console.log('Er allerede medlem');
@@ -57,7 +70,7 @@ export class JoinComponent implements OnInit {
   // returnerer true om id til innlogget bruker er
   erBrukerMedlem(){
     for (const bruker of this.redigerChallenge.deltagere){
-      if (this.innloggetId === bruker){
+      if (this.innloggetId === bruker.brukerId){
         return true;
       }
     }

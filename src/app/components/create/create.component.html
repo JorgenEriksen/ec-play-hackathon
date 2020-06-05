@@ -1,0 +1,41 @@
+<div id="form-container">
+    <app-meldingsboks [melding]='melding'></app-meldingsboks>
+    <h1>Create new challenge</h1>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-input-container">
+            <label for="gruppenavn">Challenge/group name</label>
+            <input type="text" placeholder="A super cool name" [(ngModel)]="challenge.navn" name="gruppenavn">
+        </div>
+        <div class="form-input-container">
+            <label for="beskrivelse">Description</label>
+            <input type="text" placeholder="E.g. train on power chords for 15 minute" [(ngModel)]="challenge.beskrivelse" name="beskrivelse">
+        </div>
+        <div class="form-input-container">
+            <label for="frekvens">Number of frequency per day</label>
+            <input type="number" min="1" [(ngModel)]="challenge.frekvens" name="frekvens">
+        </div>
+        <div class="form-input-container">
+            <label for="dato">Date for challenge to end</label>
+            <input type="date" [ngModel]="challenge.sluttDato" data-date-format="DD-YYYY-MM" (ngModelChange)="challenge.sluttDato = $event" name="dato" min="{{datoImorgen | date: 'yyyy-MM-dd'}}">
+        </div>
+        <div class="form-input-container">
+            <label for="poeng">What should give the most points?</label>
+            <select id="isopen" [(ngModel)]="challenge.prioritering" name="poeng">
+                <option value="frekvens">Prioritize frequency over length</option>
+                <option value="lengde" >Prioritize length over frequency</option>
+            </select>
+        </div>
+        <div class="form-input-container">
+            <label for="isopen">Who is the challange for?</label>
+            <select id="isopen" [(ngModel)]="challenge.type" name="isopen">
+                <option value="solo" >Only me</option>
+                <option value="closed">Only for invited</option>
+                <option value="open" >Everyone</option>
+            </select>
+        </div>
+        <div class="form-input-container submit-container">
+            <input type="submit" value="Create">
+        </div>
+
+    </form>
+</div>

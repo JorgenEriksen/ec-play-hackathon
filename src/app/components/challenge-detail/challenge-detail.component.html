@@ -1,0 +1,32 @@
+<div>
+
+
+
+  <div class="blue-box" id="challenge-info">
+    <h1>{{ challenge.navn }}</h1>
+    <p>{{ challenge.beskrivelse }}</p>
+    <p>{{ fraDato.toLocaleDateString() }} - {{ tilDato.toLocaleDateString() }} </p>
+  </div>
+
+  <div class="pair-box-container">
+    <div class="blue-box">
+
+    </div>
+
+    <div id="form-container">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-input-container">
+          <app-meldingsboks [melding]='melding' [color]='color'></app-meldingsboks>
+          <h2>Report activity</h2>
+          <label for="dato">Date</label>
+          <input type="date" [(ngModel)]="valgtDato" min="{{fraDato| date: 'yyyy-MM-dd'}}"
+            max="{{tilDato| date: 'yyyy-MM-dd'}}" name="dato" (change)="datoEndret()">
+          <label for="frekvens">Set frequency for that day</label>
+          <input type="number" [(ngModel)]="valgtDatoFrekvens" name="frekvens" min="0" max="challenge.frekvens">
+          <br>
+          <input type="submit" value="Set activity!">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

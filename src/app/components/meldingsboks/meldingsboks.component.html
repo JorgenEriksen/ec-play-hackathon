@@ -1,0 +1,6 @@
+<div>
+    <div *ngIf="melding !== ''">
+        <p *ngIf="color !== 'green'">{{ melding }}</p>
+        <p *ngIf="color === 'green'" class="green">{{ melding }}</p>
+    </div>
+</div>

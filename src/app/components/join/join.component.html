@@ -1,0 +1,30 @@
+<div>
+    <h1>Join challenge</h1>
+  <div>
+    <form (ngSubmit)="onSubmit()" id="form-container">
+      <div class="form-input-container">
+        <label for="inviteringskode">Invitation code</label>
+        <input type="text" placeholder="" [(ngModel)]="kodeInput" name="inviteringskode"><br>
+        <input type="submit" value="Enter Challenge">
+      </div>
+    </form>
+  </div>
+  <h2>All open challenges</h2>
+  <div *ngFor="let challenge of alleChallenges" class="challenge-container">
+    <div *ngIf="challenge.type == 'open'">
+      <p>challenge id: {{ challenge.id }}</p>
+      <p>navn: {{ challenge.navn }}</p>
+      <p>description: {{ challenge.beskrivelse }}</p>
+      <p>creator id: {{ challenge.admin }}</p>
+      <p *ngIf="challenge.type=='solo'">solo</p>
+      <p *ngIf="challenge.type=='closed'">closed</p>
+      <p *ngIf="challenge.type=='open'">open</p>
+      <p>invitecode: {{ challenge.inviteringskode }} </p>
+      <p>participants: </p>
+      <span *ngFor="let deltager of challenge.deltagere"> {{ deltager }} </span>
+    </div>
+  </div>
+  <div *ngIf="antallOpenChallenges < 1">
+    <p>There are none open challenges for the moment. Why not create one?</p>
+  </div>
+</div>
