@@ -15,6 +15,10 @@
             <input type="number" min="1" [(ngModel)]="challenge.frekvens" name="frekvens">
         </div>
         <div class="form-input-container">
+            <label for="toplist">Number of visible user in toplist</label>
+            <input type="number" min="0" max="20" [(ngModel)]="challenge.antallToplise" name="toplist">
+        </div>
+        <div class="form-input-container">
             <label for="dato">Date for challenge to end</label>
             <input type="date" [ngModel]="challenge.sluttDato" data-date-format="DD-YYYY-MM" (ngModelChange)="challenge.sluttDato = $event" name="dato" min="{{datoImorgen | date: 'yyyy-MM-dd'}}">
         </div>

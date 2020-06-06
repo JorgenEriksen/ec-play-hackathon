@@ -1,5 +1,6 @@
 <div>
     <h1>Join challenge</h1>
+    <app-meldingsboks [melding]='melding' [color]='color'></app-meldingsboks>
   <div>
     <form (ngSubmit)="onSubmit()" id="form-container">
       <div class="form-input-container">
@@ -10,18 +11,16 @@
     </form>
   </div>
   <h2>All open challenges</h2>
-  <div *ngFor="let challenge of alleChallenges" class="challenge-container">
-    <div *ngIf="challenge.type == 'open'">
-      <p>challenge id: {{ challenge.id }}</p>
-      <p>navn: {{ challenge.navn }}</p>
-      <p>description: {{ challenge.beskrivelse }}</p>
-      <p>creator id: {{ challenge.admin }}</p>
-      <p *ngIf="challenge.type=='solo'">solo</p>
-      <p *ngIf="challenge.type=='closed'">closed</p>
-      <p *ngIf="challenge.type=='open'">open</p>
-      <p>invitecode: {{ challenge.inviteringskode }} </p>
-      <p>participants: </p>
-      <span *ngFor="let deltager of challenge.deltagere"> {{ deltager }} </span>
+  <div *ngFor="let challenge of this.allePotensielleChallenges">
+    <div class="challenge-container">
+      <div>
+        <h3>{{ challenge.navn }}</h3>
+        <p>{{ challenge.beskrivelse }} </p> 
+        <p *ngIf="challenge.type=='open'">open for all</p>
+      </div>
+      <div class="join-button">
+        <div (click)="leggTilBrukerIChallenge(challenge)">Join Challenge</div>
+      </div>
     </div>
   </div>
   <div *ngIf="antallOpenChallenges < 1">

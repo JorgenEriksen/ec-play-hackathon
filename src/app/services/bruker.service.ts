@@ -28,6 +28,9 @@ export class BrukerService {
   getBrukere(){
     return this.brukere;
   }
+  getBrukernavnFraId(bruker: Bruker){
+    this.brukerDoc = this.afs.doc(`brukerDoc/${bruker.id}`);
+  }
 
   leggTilBruker(nyBruker: Bruker){ // nyBruker skal være ferdig validert før den kommer hit fra create
    this.brukerCollection.add(nyBruker);

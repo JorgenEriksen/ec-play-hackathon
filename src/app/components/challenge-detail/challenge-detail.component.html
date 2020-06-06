@@ -1,32 +1,102 @@
-<div>
+<div id="hele-challenge-page">
 
-
-
-  <div class="blue-box" id="challenge-info">
-    <h1>{{ challenge.navn }}</h1>
-    <p>{{ challenge.beskrivelse }}</p>
-    <p>{{ fraDato.toLocaleDateString() }} - {{ tilDato.toLocaleDateString() }} </p>
+  <div class="challenge-page-container">
+    <div class="long-box">
+      <h1>{{ challenge.navn }}</h1>
+      <p>{{ challenge.beskrivelse }}</p>
+      <p>{{ challenge.frekvens }} times per day</p>
+      <p>{{ fraDato.toLocaleDateString() }} - {{ tilDato.toLocaleDateString() }} </p>
+      <p *ngIf="challenge.type !== 'solo'"> Invitationcode: {{challenge.inviteringskode }} </p>
+      <p>{{challenge.type}} challenge</p>
+    </div>
+    <div class="short-box margin-left">
+      <div *ngIf="challenge.type !== 'solo'">
+        <h2>Top {{ challenge.antallToplise }} persons <span *ngIf="challenge.ikkeSorter == true">(unsorted)</span></h2>
+        <p *ngFor="let del of this.topDeltagere"> {{ del.brukerNavn }}</p>
+      </div>
+    </div>
   </div>
 
-  <div class="pair-box-container">
-    <div class="blue-box">
 
+  <div class="challenge-page-container">
+    <div class="short-box">
+      <h2>Your statistics</h2>
+      <h3>Total points: </h3>
+      <p>Days with activity: {{ this.dagerMedAktivitet }}</p>
+      <p>Total frequency: {{ this.totalFrekvens }} </p>
+      <p>Your best day streak: {{ this.bestStreak }} </p>
+      <p>Current day streak: </p>
+      
+      
     </div>
+    <div class="long-box  margin-left">
+      <div id="form-container">
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-input-container">
+            <app-meldingsboks [melding]='melding' [color]='color'></app-meldingsboks>
+            <h2>Report activity</h2>
+            <label for="dato">Date</label>
+            <input type="date" [(ngModel)]="valgtDato" min="{{fraDato| date: 'yyyy-MM-dd'}}"
+              max="{{tilDato| date: 'yyyy-MM-dd'}}" name="dato" (change)="datoEndret()">
+            <label for="frekvens">Set frequency for that day</label>
+            <input type="number" [(ngModel)]="valgtDatoFrekvens" name="frekvens" min="0" max="challenge.frekvens">
+            <br>
+            <input type="submit" value="Set Activity">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
+  <div class="edit-container">
     <div id="form-container">
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onRedigerSubmit()">
         <div class="form-input-container">
-          <app-meldingsboks [melding]='melding' [color]='color'></app-meldingsboks>
-          <h2>Report activity</h2>
-          <label for="dato">Date</label>
-          <input type="date" [(ngModel)]="valgtDato" min="{{fraDato| date: 'yyyy-MM-dd'}}"
-            max="{{tilDato| date: 'yyyy-MM-dd'}}" name="dato" (change)="datoEndret()">
+          <h2>Edit challenge</h2>
+          <label for="gruppenavn">Challenge/group name</label>
+          <input type="text" placeholder="A super cool name" [(ngModel)]="redigerChallenge.navn" name="gruppenavn">
+
+          <label for="beskrivelse">Description</label>
+          <input type="text" placeholder="E.g. train on power chords for 15 minute" [(ngModel)]="redigerChallenge.beskrivelse" name="beskrivelse">
+
           <label for="frekvens">Set frequency for that day</label>
-          <input type="number" [(ngModel)]="valgtDatoFrekvens" name="frekvens" min="0" max="challenge.frekvens">
+          <input type="number" min="0" [(ngModel)]="redigerChallenge.frekvens" name="frekvens">
+
+          <label for="toplist">Number of visible user in toplist</label>
+          <input type="number" min="0" max="20" [(ngModel)]="redigerChallenge.antallToplise" name="toplist">
+
+          <label for="poeng">What should give the most points?</label>
+            <select id="isopen" [(ngModel)]="redigerChallenge.prioritering" name="poeng">
+                <option value="frekvens">Prioritize frequency over length</option>
+                <option value="lengde" >Prioritize length over frequency</option>
+            </select>
+            <label for="isopen">Who is the challange for?</label>
+            <select id="isopen" [(ngModel)]="redigerChallenge.type" name="isopen">
+                <option value="solo" >Only me</option>
+                <option value="closed">Only for invited</option>
+                <option value="open" >Everyone</option>
+            </select>
           <br>
-          <input type="submit" value="Set activity!">
+          <input type="submit" value="Edit Activity">
+          <br>
+        </div>
+      </form>
+      <form (ngSubmit)="onSlettSubmit()">
+        <div class="form-input-container">
+          <input type="submit" value="Delete activity" id="delete-button">
+          <div id="confirm-container" *ngIf="confirmBoks">
+            <input type="submit" value="Yes" id="yes-button" (click)="slettChallenge()">
+            <input type="submit" value="No" id="no-button">
+          </div>
+          
         </div>
       </form>
     </div>
+    
+
   </div>
+
+
+
+
 </div>

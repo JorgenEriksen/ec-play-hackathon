@@ -23,10 +23,13 @@ export class CreateComponent implements OnInit {
     frekvens: 1,
     startDato: '',
     sluttDato: '',
+    antallDager: 1,
     prioritering: 'frekvens',
+    antallToplise: 0,
+    ikkeSorter: true,
     admin: '',
     deltagere: [{
-      brukerId: '',                          // id til brukerene som er med i challenge
+      brukerId: '',          // id til brukerene som er med i challenge
       statistikk: []         // frekvens gjort av challenge den datoen]
     }],
     type: 'closed',             // vil kun være solo, closed eller open
@@ -46,6 +49,7 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit(){
+    console.log(this.antallDager());
     let invKode;
     // Ha med sjekk at gruppenavn er tatt?
 
@@ -65,9 +69,11 @@ export class CreateComponent implements OnInit {
         statistikk: []
       };
 
-      // regner ut hvor mange dager det er med challenge og legger in blanke tall i statestikk
-      // this.challenge.deltagere[0].statistikk
-
+      this.challenge.antallDager = this.antallDager();
+      // setter verdi 0 på alle dager i statestikk.
+      for (let i = 0; i < this.challenge.antallDager; i++){
+        this.challenge.deltagere[0].statistikk.push(0);
+      }
 
       this.challenge.startDato = new Date(Date.now()).toString();
       this.challenge.sluttDato = new Date(this.challenge.sluttDato).toString();
@@ -90,7 +96,8 @@ export class CreateComponent implements OnInit {
     const dagensDatoPlaceholder = new Date().getTime();
     const sluttDatoPlaceholder = new Date(this.challenge.sluttDato).getTime();
 
-    if (this.challenge.navn === '' || this.challenge.beskrivelse === '' || this.challenge.type === ''){
+    if (this.challenge.navn === '' || this.challenge.beskrivelse === '' || this.challenge.type === '' || this.challenge.frekvens === null 
+    || this.challenge.antallToplise === null){
       this.melding = 'please complete all parts of the form';
       return false;
     } else if (dagensDatoPlaceholder >= sluttDatoPlaceholder){
@@ -100,6 +107,18 @@ export class CreateComponent implements OnInit {
       return true;
     }
 
+  }
+
+  antallDager(){
+    const enDag = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const startPlaceholder = new Date();
+    const valgtPlaceholder = new Date(this.challenge.sluttDato);
+    startPlaceholder.setHours(0, 0, 0, 0);
+    valgtPlaceholder.setHours(0, 0, 0, 0);
+    const startDato = startPlaceholder.getTime();
+    const valgtDato = valgtPlaceholder.getTime();
+    const diffDays = Math.round(Math.abs((startDato - valgtDato) / enDag));
+    return diffDays;
   }
 
 }

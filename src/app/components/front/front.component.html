@@ -2,43 +2,28 @@
 
 <div>
     <h1>My challenges</h1>
-
     <div *ngIf="administrerendeChallenges > 0">
         <h2>Challenges I administrate</h2>
         <div *ngFor="let challenge of alleChallenges">
-            <div *ngIf="challenge.admin === innloggetId" class="challenge-container">
-                <p>challenge id: {{ challenge.id }}</p>
-                <p>navn: {{ challenge.navn }}</p>
-                <p>description: {{ challenge.beskrivelse }} </p> 
-                <p>creator id: {{ challenge.admin }} </p> 
-                <p *ngIf="challenge.type=='solo'">solo</p>
-                <p *ngIf="challenge.type=='closed'">closed</p>
-                <p *ngIf="challenge.type=='open'">open</p>
-                <p>invitecode: {{ challenge.inviteringskode }} </p>
-                <p>participants: </p>
-                <span *ngFor="let deltager of challenge.deltagere"> {{ deltager }} </span> 
-                <button [routerLink]="['/challenge', challenge.id]">Open Challenge</button>
-                <button (click)="slettChallenge($event, challenge)">delete</button>
+            <div *ngIf="challenge.admin === innloggetId" class="challenge-container" [routerLink]="['/challenge', challenge.id]">
+                <h3>{{ challenge.navn }}</h3>
+                <p>{{ challenge.beskrivelse }} </p> 
+                <p *ngIf="challenge.type=='solo'">solo challenge</p>
+                <p *ngIf="challenge.type=='closed'">only for invited</p>
+                <p *ngIf="challenge.type=='open'">open for all</p>
             </div>
         </div>
     </div>
 
     <div>
         <h2 *ngIf="administrerendeChallenges > 0">Joined challenges</h2>
-        <div *ngFor="let challenge of alleChallenges">
-            <div *ngIf="challenge.admin !== innloggetId" class="challenge-container">
-                <p>challenge id: {{ challenge.id }}</p>
-                <p>navn: {{ challenge.navn }}</p>
-                <p>description: {{ challenge.beskrivelse }} </p> 
-                <p>creator id: {{ challenge.admin }} </p> 
-                <p *ngIf="challenge.type=='solo'">solo</p>
-                <p *ngIf="challenge.type=='closed'">closed</p>
-                <p *ngIf="challenge.type=='open'">open</p>
-                <p>invitecode: {{ challenge.inviteringskode }} </p>
-                <p>participants: </p>
-                <span *ngFor="let deltager of challenge.deltagere"> {{ deltager }} </span> 
-                <button [routerLink]="['/challenge', challenge.id]">Open Challenge</button>
-                <button (click)="slettChallenge($event, challenge)">delete</button>
+        <div *ngFor="let challenge of alleBrukerChallenges">
+            <div *ngIf="challenge.admin !== innloggetId" class="challenge-container" [routerLink]="['/challenge', challenge.id]">
+                <h3>{{ challenge.navn }}</h3>
+                <p>{{ challenge.beskrivelse }} </p> 
+                <p *ngIf="challenge.type=='solo'">solo challenge</p>
+                <p *ngIf="challenge.type=='closed'">only for invited</p>
+                <p *ngIf="challenge.type=='open'">open for all</p>
             </div>
         </div>
     </div>

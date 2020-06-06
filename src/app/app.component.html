@@ -1,6 +1,6 @@
 <div id="hele-siden">
-  <app-login *ngIf="loggetInn == true" ></app-login>
-  <div *ngIf="loggetInn == false">
+  <app-login *ngIf="loggetInn == false" ></app-login>
+  <div *ngIf="loggetInn == true">
     <app-header></app-header>
     <div id="hoved-delen">
       <router-outlet></router-outlet>

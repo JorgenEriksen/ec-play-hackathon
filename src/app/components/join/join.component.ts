@@ -10,9 +10,12 @@ import { Challenge } from '../../models/challenge';
   styleUrls: ['./join.component.scss']
 })
 export class JoinComponent implements OnInit {
+  melding: string;               // melding til meldingsboks
+  color: 'green';
   alleChallenges: Challenge[];
   innloggetId: string;
   redigerChallenge: Challenge;
+  allePotensielleChallenges;        // alle åpne challenge som brukeren ikke er medlem av.
   antallOpenChallenges: number;
   kodeInput = '';
 
@@ -24,10 +27,16 @@ export class JoinComponent implements OnInit {
     this.challengeService.getChallenges().subscribe(challengesData => {
       this.alleChallenges = challengesData;
 
-      // teller antall lagrede challenges som er open
+      // teller antall lagrede challenges som er open og lager array med ujoinet challenge
       this.antallOpenChallenges = 0;
-      this.alleChallenges.forEach(element => {
-        if (element.type === 'open'){ this.antallOpenChallenges++; }
+      this.allePotensielleChallenges = [];
+      this.alleChallenges.forEach(chal => {
+        let medlem = false;
+        if (chal.type === 'open'){ this.antallOpenChallenges++; }
+        chal.deltagere.forEach(deltager => {
+          if (deltager.brukerId === this.innloggetId){ medlem = true; }
+        });
+        if (medlem === false){ this.allePotensielleChallenges.push(chal); }
       });
     });
   }
@@ -36,15 +45,8 @@ export class JoinComponent implements OnInit {
     if (this.kodeInput !== ''){
       if (this.finnesInviteringskode(this.kodeInput)){ // om inviteringskoden finnes
         if (!this.erBrukerMedlem()){                   // om innlogget bruker ikke er medlem fra før
-          console.log('Lagt til bruker!');
-          this.redigerChallenge.deltagere.push({
-            brukerId: this.innloggetId,
-            statistikk: [{
-              dato: new Date(),
-              brukerFrekvense: 0
-            }]
-          });
-          this.challengeService.oppdaterChallenge(this.redigerChallenge);
+          this.leggTilBrukerIChallenge(this.redigerChallenge);
+          this.kodeInput = '';
         } else {
           console.log('Er allerede medlem');
         }
@@ -75,6 +77,24 @@ export class JoinComponent implements OnInit {
       }
     }
     return false;
+  }
+
+
+
+  // denne kan bli kjørt fra onSubmit() eller (click)/html
+  leggTilBrukerIChallenge(chal: Challenge){
+    this.redigerChallenge = chal;
+    let statestikkPlaceholder = [];
+    for (let i = 0; i < this.redigerChallenge.antallDager; i++){
+        statestikkPlaceholder.push(0);
+    }
+    this.redigerChallenge.deltagere.push({
+      brukerId: this.innloggetId,
+      statistikk: statestikkPlaceholder
+    });
+    this.challengeService.oppdaterChallenge(this.redigerChallenge);
+    this.color = 'green';
+    this.melding = 'You have joined challenge ' + this.redigerChallenge.navn;
   }
 
 }

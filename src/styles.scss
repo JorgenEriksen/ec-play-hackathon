@@ -11,13 +11,14 @@ body, html{
     font-family: DINPro, sans-serif;
 }
 
+
 h1{
     text-align: center;
     text-transform: capitalize;
 }
 
 #form-container{
-    width: 500px;
+    max-width: 500px;
     margin: 0 auto;
 
     .form-input-container{

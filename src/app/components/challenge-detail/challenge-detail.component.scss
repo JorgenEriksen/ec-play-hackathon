@@ -1,9 +1,95 @@
-.blue-box{
-    padding: 0px 20px 10px 20px;
-    background: #2A4158;
+#hele-challenge-page{
+    padding-bottom: 30px;
 }
 
-#challenge-info, h1{
-    text-align: left;
+.challenge-page-container{
+    display: flex;
+    flex-direction: row;
+    min-height: 300px;
+    
+    .long-box{
+        margin-top: 20px;
+        background: #2A4158;
+        padding: 0 20px;
+        flex-grow: 1;
+    }
+
+    .short-box{
+        margin-top: 20px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        width: 500px;
+        background: #2A4158;
+    }
+
+    .margin-left{
+        margin-left: 20px;
+    }
+
+    h1{
+        text-align: left;
+    }
 
 }
+
+.edit-container{
+    margin-top: 20px;
+    padding-bottom: 30px;
+    background: #597387;
+    #form-container{
+
+        div.form-input-container{
+            background: #597387;
+        }
+    }
+
+}
+
+#delete-button{
+    background: #C90035;
+}
+
+input[type=submit]#delete-button:hover{
+    background: rgb(129, 0, 0) !important;
+}
+
+
+#confirm-container{
+    padding-top: 20px;
+    display: flex;
+
+    #yes-button{
+        background: #C90035;
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+    #yes-button:hover, #delete-button:hover{
+        background: rgb(129, 0, 0);
+    }
+
+    #no-button{
+        flex-grow: 1;
+        margin-left: 10px;
+
+    }
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .challenge-page-container {
+        flex-direction: column;
+    }
+
+    .margin-left{
+        margin-left: 0px !important;
+    }
+
+    .short-box{
+        width: 100% !important;
+        flex-grow: 1 !important;
+    }
+
+
+  }
+
+
