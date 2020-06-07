@@ -2,7 +2,7 @@
     <h1>Join challenge</h1>
     <app-meldingsboks [melding]='melding' [color]='color'></app-meldingsboks>
   <div>
-    <form (ngSubmit)="onSubmit()" id="form-container">
+    <form (ngSubmit)="onSubmit()" class="form-container">
       <div class="form-input-container">
         <label for="inviteringskode">Invitation code</label>
         <input type="text" placeholder="" [(ngModel)]="kodeInput" name="inviteringskode"><br>

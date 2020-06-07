@@ -32,18 +32,23 @@
 
 }
 
-.edit-container{
-    margin-top: 20px;
-    padding-bottom: 30px;
-    background: #597387;
-    #form-container{
 
-        div.form-input-container{
-            background: #597387;
+#edit-container{
+    padding-bottom: 30px;
+    .long-box{
+        background: #597387;
+        .form-container{
+            div.form-input-container{
+                background: #597387;
+            }
         }
+    }
+    .short-box{
+        background: #597387;
     }
 
 }
+
 
 #delete-button{
     background: #C90035;

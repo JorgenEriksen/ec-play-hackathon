@@ -31,6 +31,12 @@ export class ChallengeDetailComponent implements OnInit {
   dagerMedAktivitet: number;
   bestStreak: number;
   topDeltagere: any[];
+  alleDeltagerStatistikk: {
+    navn: string,
+    totalFrekvensDager: number,
+    allFrekvens: number,
+    statistikk: any[]
+  }[];
 
   confirmBoks = false;              // viser confirm boks ang sletting av challenge
   alleChallenges: Challenge[];
@@ -73,6 +79,44 @@ export class ChallengeDetailComponent implements OnInit {
   kalkulerPoeng(){
 
 
+    // regner ut statistikk til alle deltagere
+    this.alleDeltagerStatistikk = [];
+    let brukernavn = '';
+    let antallDager = 0;
+    let totalFrekvens = 0;
+    let date;
+    let stat = [];
+    this.challenge.deltagere.forEach(deltager => {
+      antallDager = 0;
+      totalFrekvens = 0;
+      stat = [];
+      this.alleBrukere.forEach(bruker => {
+        if (bruker.id === deltager.brukerId) {
+          brukernavn = bruker.brukernavn;
+        }
+      });
+      deltager.statistikk.forEach((poeng, idx) => {
+        if (poeng > 0) {
+          antallDager++;
+          totalFrekvens += poeng;
+          date = new Date();
+          date.setDate(date.getDate() + idx);
+          stat.push({
+            dato: date,
+            frekvens: poeng
+          });
+        }
+      });
+      this.alleDeltagerStatistikk.push({
+        navn: brukernavn,
+        totalFrekvensDager: antallDager,
+        allFrekvens: totalFrekvens,
+        statistikk: stat
+      });
+
+    });
+    console.log('this.alleDeltagerStatistikk');
+    console.log(this.alleDeltagerStatistikk);
 
 
     // regner ut innlogget bruker sine totale frekvens, og antall dager med aktivitet
@@ -118,7 +162,6 @@ export class ChallengeDetailComponent implements OnInit {
     });
 
     this.topDeltagere = this.topDeltagere.sort((a, b) => (a.frekvens > b.frekvens) ? 1 : ((b.frekvens > a.frekvens) ? -1 : 0));
-    console.log(this.topDeltagere);
     // reversere rekkefølgen så høyest sum kommer først
     this.topDeltagere.reverse();
     let kutt = this.challenge.antallToplise;
@@ -145,15 +188,17 @@ export class ChallengeDetailComponent implements OnInit {
       && this.valgtDatoFrekvens <= this.challenge.frekvens){
       this.challenge.deltagere[this.deltagerIndex].statistikk[antallDagerFraStart] = this.valgtDatoFrekvens;
       this.challengeService.oppdaterChallenge(this.challenge);
+      this.color = 'green';
       this.melding = 'Good job!';
+    } else {
+      this.color = 'red';
+      this.melding = 'Frequency must be between 0 and ' + this.challenge.frekvens;
     }
 
   }
 
   datoEndret(){
-    console.log('this.deltagerIndex ' + this.deltagerIndex);
     let antallDagerFraStart = this.antallDagerFraStart(this.valgtDato);
-    console.log('diffdays ' + antallDagerFraStart);
     if (this.challenge.deltagere[this.deltagerIndex].statistikk[antallDagerFraStart] === undefined){
       this.valgtDatoFrekvens = 0;
     } else {

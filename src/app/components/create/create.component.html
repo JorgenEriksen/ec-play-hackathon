@@ -1,10 +1,10 @@
-<div id="form-container">
+<div class="form-container">
     <app-meldingsboks [melding]='melding'></app-meldingsboks>
     <h1>Create new challenge</h1>
     <form (ngSubmit)="onSubmit()">
         <div class="form-input-container">
             <label for="gruppenavn">Challenge/group name</label>
-            <input type="text" placeholder="A super cool name" [(ngModel)]="challenge.navn" name="gruppenavn">
+            <input type="text" placeholder="E.g. hogwarts guitar class" [(ngModel)]="challenge.navn" name="gruppenavn">
         </div>
         <div class="form-input-container">
             <label for="beskrivelse">Description</label>
